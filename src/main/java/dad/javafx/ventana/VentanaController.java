@@ -34,7 +34,9 @@ public class VentanaController implements Initializable {
 	@FXML
 	private Slider blueSlider;
 
-	private VentanaModel model = new VentanaModel();
+	private VentanaModel model;
+	private Double posX;
+	private Double posY;
 
 	String rutaPerfil = System.getProperty("user.home");
 
@@ -75,8 +77,8 @@ public class VentanaController implements Initializable {
 			prop.setProperty("background.green", model.getGreen() + "");
 			prop.setProperty("size.width", view.getWidth() + "");
 			prop.setProperty("size.height", view.getHeight() + "");
-			prop.setProperty("location.x", view.getScene().getWindow().getX() + "");
-			prop.setProperty("location.y", view.getScene().getWindow().getY() + "");
+			prop.setProperty("location.x", getX() + "");
+			prop.setProperty("location.y", getY() + "");
 
 			prop.store(output, null);
 		} catch (IOException e) {
@@ -90,16 +92,40 @@ public class VentanaController implements Initializable {
 
 			prop.load(input);
 
-			prop.getProperty("background.red", model.getRed() + "");
-			prop.getProperty("background.blue", model.getBlue() + "");
-			prop.getProperty("background.green", model.getGreen() + "");
-			prop.getProperty("size.width", view.getWidth() + "");
-			prop.getProperty("size.height", view.getHeight() + "");
-			prop.getProperty("location.x", view.getScene().getWindow().getX() + "");
-			prop.getProperty("location.y", view.getScene().getWindow().getY() + "");
+			model.setRed(Integer.parseInt(prop.getProperty("background.red")));
+			model.setGreen(Integer.parseInt(prop.getProperty("background.green")));
+			model.setBlue(Integer.parseInt(prop.getProperty("background.blue")));
+			view.setPrefWidth(Double.parseDouble(prop.getProperty("size.width")));
+			view.setPrefHeight(Double.parseDouble(prop.getProperty("size.height")));
+			setPosX(Double.parseDouble(prop.getProperty("location.x")));
+			setPosY(Double.parseDouble(prop.getProperty("location.y")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private Double getX() {
+		return this.view.getScene().getWindow().getX();
+	}
+
+	private Double getY() {
+		return this.view.getScene().getWindow().getY();
+	}
+
+	public Double getPosX() {
+		return posX;
+	}
+
+	public void setPosX(Double posX) {
+		this.posX = posX;
+	}
+
+	public Double getPosY() {
+		return posY;
+	}
+
+	public void setPosY(Double posY) {
+		this.posY = posY;
 	}
 
 	public VBox getView() {

@@ -10,6 +10,7 @@ public class App extends Application {
 
 	@Override
 	public void init() throws Exception {
+		controller = new VentanaController();
 		controller.cargarArchivo();
 	}
 
@@ -18,10 +19,12 @@ public class App extends Application {
 		controller.crearArchivo();
 	}
 
+	@Override
 	public void start(Stage primaryStage) throws Exception {
-		controller = new VentanaController();
-
 		Scene scene = new Scene(controller.getView());
+
+		primaryStage.setX(controller.getPosX());
+		primaryStage.setY(controller.getPosY());
 		primaryStage.setTitle("Ventana con memoria");
 		primaryStage.setScene(scene);
 		primaryStage.show();
