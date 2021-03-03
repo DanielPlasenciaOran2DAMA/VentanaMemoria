@@ -34,11 +34,11 @@ public class VentanaController implements Initializable {
 	@FXML
 	private Slider blueSlider;
 
-	private VentanaModel model;
+	private VentanaModel model = new VentanaModel();
 	private Double posX;
 	private Double posY;
 
-	String rutaPerfil = System.getProperty("user.home");
+	private String ruta = System.getProperty("user.home");
 
 	public VentanaController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/VentanaView.fxml"));
@@ -68,15 +68,33 @@ public class VentanaController implements Initializable {
 		});
 	}
 
-	public void crearArchivo() {
-		try (OutputStream output = new FileOutputStream(rutaPerfil + "/.VentanaConMemoria/ventana.config")) {
+	/*public void cargarArchivo() {
+		try (InputStream input = new FileInputStream(ruta + "/ventana.config")) {
 			Properties prop = new Properties();
 
-			prop.setProperty("background.red", model.getRed() + "");
-			prop.setProperty("background.blue", model.getBlue() + "");
-			prop.setProperty("background.green", model.getGreen() + "");
-			prop.setProperty("size.width", view.getWidth() + "");
-			prop.setProperty("size.height", view.getHeight() + "");
+			prop.load(input);
+
+			this.model.setRed(Integer.parseInt(prop.getProperty("background.red")));
+			this.model.setGreen(Integer.parseInt(prop.getProperty("background.green")));
+			this.model.setBlue(Integer.parseInt(prop.getProperty("background.blue")));
+			this.view.setPrefWidth(Double.parseDouble(prop.getProperty("size.width")));
+			this.view.setPrefHeight(Double.parseDouble(prop.getProperty("size.height")));
+			this.setPosX(Double.parseDouble(prop.getProperty("location.x")));
+			this.setPosY(Double.parseDouble(prop.getProperty("location.y")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void crearArchivo() {
+		try (OutputStream output = new FileOutputStream(ruta + "/ventana.config")) {
+			Properties prop = new Properties();
+
+			prop.setProperty("background.red", this.model.getRed() + "");
+			prop.setProperty("background.blue", this.model.getBlue() + "");
+			prop.setProperty("background.green", this.model.getGreen() + "");
+			prop.setProperty("size.width", this.view.getWidth() + "");
+			prop.setProperty("size.height", this.view.getHeight() + "");
 			prop.setProperty("location.x", getX() + "");
 			prop.setProperty("location.y", getY() + "");
 
@@ -84,25 +102,7 @@ public class VentanaController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void cargarArchivo() {
-		try (InputStream input = new FileInputStream(rutaPerfil + "/.VentanaConMemoria/ventana.config")) {
-			Properties prop = new Properties();
-
-			prop.load(input);
-
-			model.setRed(Integer.parseInt(prop.getProperty("background.red")));
-			model.setGreen(Integer.parseInt(prop.getProperty("background.green")));
-			model.setBlue(Integer.parseInt(prop.getProperty("background.blue")));
-			view.setPrefWidth(Double.parseDouble(prop.getProperty("size.width")));
-			view.setPrefHeight(Double.parseDouble(prop.getProperty("size.height")));
-			setPosX(Double.parseDouble(prop.getProperty("location.x")));
-			setPosY(Double.parseDouble(prop.getProperty("location.y")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	}*/
 
 	private Double getX() {
 		return this.view.getScene().getWindow().getX();
